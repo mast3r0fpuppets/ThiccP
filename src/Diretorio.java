@@ -17,7 +17,6 @@ public class Diretorio {
 		PrintWriter out;
 		List<PrintWriter> outs = new ArrayList<>();
 		List<User> users = new ArrayList<>();
-		User john = new User("222.111.123.1", "8");
 
 		public ConnectionThread(Socket socket) {
 			this.socket = socket;
@@ -34,27 +33,29 @@ public class Diretorio {
 
 		public void run() {
 			String msg;
-			users.add(john);
-			try {
-				msg = in.readLine();
-				if (msg.contains("INSC")) {
-					String[] partes = msg.split(" ");
-					User user = new User(partes[1], partes[2]);
-					users.add(user);
-					System.out.println(users);
-				} else if (msg.equals("CLT")) {
-					for (User usr : users) {
-						out.println("CLT " + usr.toString());
+			while (true) {
+				try {
+					msg = in.readLine();
+					if (msg.contains("INSC")) {
+						String[] partes = msg.split(" ");
+						User user = new User(partes[1], partes[2]);
+						users.add(user);
+					} else if (msg.equals("CLT")) {
+						for (User usr : users) {
+							out.println("CLT "+usr);
+						}
+						out.println("END");
 					}
-					out.println("END");
+					else if(msg.equals("Exit")) {
+						return;
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 			}
-
 		}
-
 	}
 
 	public static void main(String[] args) throws IOException, InterruptedException {

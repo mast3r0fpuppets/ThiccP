@@ -24,23 +24,27 @@ public class Utilizador {
 		try {
 			while (true) {
 				String line = scanner.nextLine();
-				
+
 				if (!line.isEmpty()) {
 					if (line.equals("CLT")) {
-						System.out.println(line);
 						out.println("CLT");
-						String msg = in.readLine();
-						if (msg != null) {
+						System.out.println(in.readLine());
+						String msg;
+						while( (msg =in.readLine())!=null) {
 							System.out.println(msg);
+						
 						}
 					}
 					if (line.equals("Exit")) {
-						socket.close();
+						out.println("Exit");
+						
+						break;
 					}
 				}
-				
 			}
-		} catch (IllegalStateException e) {
+			socket.close(); 
+		} 
+		catch (IllegalStateException e) {
 			e.printStackTrace();
 		}
 
