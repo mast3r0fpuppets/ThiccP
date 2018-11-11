@@ -16,9 +16,12 @@ public class Diretorio {
 		BufferedReader in;
 		PrintWriter out;
 		List<PrintWriter> outs = new ArrayList<>();
-		List<User> users = new ArrayList<>();
+		List<User> aux = new ArrayList<>();
+		
+		
 
-		public ConnectionThread(Socket socket) {
+		public ConnectionThread(Socket socket, List<User> users) {
+			aux = users;
 			this.socket = socket;
 			try {
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -39,14 +42,16 @@ public class Diretorio {
 					if (msg.contains("INSC")) {
 						String[] partes = msg.split(" ");
 						User user = new User(partes[1], partes[2]);
-						users.add(user);
-					} else if (msg.equals("CLT")) {
-						for (User usr : users) {
+						aux.add(user);
+					}
+					else if (msg.contains("CLT")) {
+						for (User usr : aux) {
 							out.println("CLT "+usr);
 						}
 						out.println("END");
+						
 					}
-					else if(msg.equals("Exit")) {
+					if(msg.contains("Exit")) {
 						return;
 					}
 				} catch (IOException e) {
@@ -59,11 +64,12 @@ public class Diretorio {
 	}
 
 	public static void main(String[] args) throws IOException, InterruptedException {
+		List<User> users = new ArrayList<>();
 		System.out.println("Diretorio");
 		ServerSocket server = new ServerSocket(Integer.parseInt(args[0]));
 		while (true) {
 			Socket socket = server.accept();
-			ConnectionThread t = new ConnectionThread(socket);
+			ConnectionThread t = new ConnectionThread(socket,users);
 			t.start();
 		}
 	}

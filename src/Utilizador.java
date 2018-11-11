@@ -10,6 +10,10 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Utilizador {
+	
+	public void write() {
+		
+	}
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		InetAddress address = InetAddress.getLocalHost();
@@ -20,28 +24,29 @@ public class Utilizador {
 		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		out.println("INSC " + address.getHostAddress() + " " + args[1]);
 		// args[1] porto do utilizador
-		Scanner scanner = new Scanner(System.in);
 		try {
+			
 			while (true) {
+				Scanner scanner = new Scanner(System.in);
 				String line = scanner.nextLine();
 
 				if (!line.isEmpty()) {
 					if (line.equals("CLT")) {
 						out.println("CLT");
-						System.out.println(in.readLine());
 						String msg;
-						while( (msg =in.readLine())!=null) {
+						while( (msg =in.readLine())!=null ) {
 							System.out.println(msg);
-						
+							if(msg.equals("END"))
+								break;
 						}
 					}
 					if (line.equals("Exit")) {
 						out.println("Exit");
-						
 						break;
 					}
 				}
 			}
+			
 			socket.close(); 
 		} 
 		catch (IllegalStateException e) {
