@@ -24,7 +24,8 @@ public class IG {
 		frame.pack();
 	}
 
-	public void open() {
+	public void open(int i, int j) {
+		frame.setSize(i, j);
 		frame.setVisible(true);
 	}
 
@@ -68,6 +69,6 @@ public class IG {
 
 	public static void main(String args[]) {
 		IG window = new IG();
-		window.open();
+		window.open(350,350);
 	}
 }
