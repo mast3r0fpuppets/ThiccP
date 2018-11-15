@@ -19,6 +19,7 @@ public class Diretorio {
 		List<User> aux = new ArrayList<>();
 		
 		
+		
 
 		public ConnectionThread(Socket socket, List<User> users) {
 			aux = users;
@@ -44,14 +45,14 @@ public class Diretorio {
 						User user = new User(partes[1], partes[2]);
 						aux.add(user);
 					}
-					else if (msg.contains("CLT")) {
+					else if (msg.equals("CLT")) {
 						for (User usr : aux) {
 							out.println("CLT "+usr);
 						}
 						out.println("END");
 						
 					}
-					if(msg.contains("Exit")) {
+					if(msg.equals("Exit")) {
 						return;
 					}
 				} catch (IOException e) {
