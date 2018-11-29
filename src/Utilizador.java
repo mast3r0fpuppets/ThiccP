@@ -57,5 +57,6 @@ public class Utilizador {
 		Utilizador u = new Utilizador();
 		u.Connect(args[0], args[1]);
 		
+		
 	}
 }

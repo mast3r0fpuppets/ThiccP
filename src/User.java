@@ -5,8 +5,10 @@ public class User {
 	
 	
 	public User(String iP, String porto) {
+		
 		IP = iP;
 		Porto = porto;
+
 	}
 
 

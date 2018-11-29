@@ -17,6 +17,7 @@ public class Diretorio {
 		PrintWriter out;
 		List<PrintWriter> outs = new ArrayList<>();
 		List<User> aux = new ArrayList<>();
+		User u;
 		
 		
 		
@@ -40,10 +41,11 @@ public class Diretorio {
 			while (true) {
 				try {
 					msg = in.readLine();
+					
 					if (msg.contains("INSC")) {
 						String[] partes = msg.split(" ");
-						User user = new User(partes[1], partes[2]);
-						aux.add(user);
+						u = new User(partes[1], partes[2]);
+						aux.add(u);
 					}
 					else if (msg.equals("CLT")) {
 						for (User usr : aux) {
@@ -53,6 +55,7 @@ public class Diretorio {
 						
 					}
 					if(msg.equals("Exit")) {
+						aux.remove(u);
 						return;
 					}
 				} catch (IOException e) {
