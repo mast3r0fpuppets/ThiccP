@@ -11,13 +11,17 @@ import java.util.Scanner;
 
 public class Utilizador {
 	
+	private Socket socket;
+	BufferedReader in;
+	PrintWriter out;
+	
 	public void Connect(String PortoServer, String PortoUsr) throws NumberFormatException, IOException {
 		
 		InetAddress address = InetAddress.getLocalHost();
-		Socket socket = new Socket(address, Integer.parseInt(PortoServer));
+		socket = new Socket(address, Integer.parseInt(PortoServer));
 		System.out.println("Utilizador");
-		PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		out.println("INSC " + address.getHostAddress() + " " + PortoUsr);
 		try {
 			
@@ -27,7 +31,7 @@ public class Utilizador {
 
 				if (!line.isEmpty()) {
 					if (line.equals("CLT")) {
-						out.println("CLT");
+						CLT();
 						String msg;
 						while( (msg =in.readLine())!=null ) {
 							System.out.println(msg);
@@ -36,21 +40,36 @@ public class Utilizador {
 						}
 					}
 					if (line.equals("Exit")) {
-						out.println("Exit");
-						break;
+//						out.println("Exit");
+//						break;
+						Exit();
 					}
 				}
 			}
 			
-			socket.close(); 
+//			socket.close(); 
 		} 
 		catch (IllegalStateException e) {
 			e.printStackTrace();
 		}
 
 	}
-		
 	
+	public void Exit() {
+		out.println("Exit");
+		try {
+			socket.close();
+			System.exit(0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void CLT() {
+		out.println("CLT");
+	}
 	
 
 	public static void main(String[] args) throws UnknownHostException, IOException {

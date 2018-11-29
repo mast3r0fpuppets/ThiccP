@@ -3,7 +3,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +15,6 @@ import javax.swing.WindowConstants;
 
 public class IG {
 	private JFrame frame;
-	
 
 	public IG() {
 		frame = new JFrame("Interface Grafica");
@@ -69,12 +67,8 @@ public class IG {
 		frame.add(list, BorderLayout.CENTER);
 	}
 
-	public static void main(String args[]) throws NumberFormatException, IOException {
+	public static void main(String args[]) {
 		IG window = new IG();
-		Utilizador u = new Utilizador();
 		window.open(350,350);
-		u.Connect("8080", "22");
-//		u.Insc("21");
-		
 	}
 }
