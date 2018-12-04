@@ -26,6 +26,11 @@ public class IG extends Thread {
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		addFrameContent();
 		frame.pack();
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				u.Exit();
+			}
+		});
 		
 	}
 
@@ -33,8 +38,10 @@ public class IG extends Thread {
 		frame.setSize(i, j);
 		frame.setVisible(true);
 	}
+	
 
 	private void addFrameContent() {
+		
 		JPanel partecima = new JPanel();
 
 		partecima.setLayout(new GridLayout(1, 3));
@@ -55,7 +62,7 @@ public class IG extends Thread {
 		frame.add(partecima, BorderLayout.NORTH);
 		// LADO DIREITO
 		JPanel ladodireito = new JPanel();
-		ladodireito.setLayout(new GridLayout(4, 2));
+		ladodireito.setLayout(new GridLayout(2, 1));
 		JButton descarregar = new JButton("Descarregar");
 		descarregar.addActionListener(new ActionListener() {
 
@@ -64,14 +71,14 @@ public class IG extends Thread {
 			}
 		});
 		ladodireito.add(descarregar);
-		JButton disconnect = new JButton("Disconnect");
-		disconnect.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				u.Exit();
-			}
-		});
-		ladodireito.add(disconnect);
+//		JButton disconnect = new JButton("Disconnect");
+//		disconnect.addActionListener(new ActionListener() {
+//
+//			public void actionPerformed(ActionEvent e) {
+//				u.Exit();
+//			}
+//		});
+//		ladodireito.add(disconnect);
 		JProgressBar prog = new JProgressBar();
 		ladodireito.add(prog);
 		frame.add(ladodireito, BorderLayout.EAST);
