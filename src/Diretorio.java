@@ -13,11 +13,11 @@ public class Diretorio {
 
 	static class ConnectionThread extends Thread {
 		private Socket socket;
-		BufferedReader in;
-		PrintWriter out;
-		List<PrintWriter> outs = new ArrayList<>();
-		List<User> aux = new ArrayList<>();
-		User u;
+		private BufferedReader in;
+		private PrintWriter out;
+		private List<PrintWriter> outs = new ArrayList<>();
+		private List<User> aux = new ArrayList<>();
+		private User u;
 		
 		
 		
